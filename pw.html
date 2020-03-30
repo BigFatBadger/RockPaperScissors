@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <p>Welcome to password ltd.</p><br><br>
+        <p id="feedbackText"></p><br><br>
+        <input type="text" id="inputBox"><br><br>
+        <button type="submit" id="submitButton" onclick="verifyName()">Submit</button><br><br>
+        <p id="test"></p>
+        <label for="weather">Select the weather type today: </label>
+        <select id="weather">
+            <option value="">--Make a choice--</option>
+            <option value="sunny">Sunny</option>
+            <option value="rainy">Rainy</option>
+            <option value="snowing">Snowing</option>
+            <option value="overcast">Overcast</option>
+        </select>
+
+        <script>
+
+            document.getElementById("feedbackText").innerText = "What is your username?";
+            
+            let userName
+            let passWord
+
+
+            function verifyName(){
+                userName = document.getElementById("inputBox").value;
+                switch (userName){
+                    case "Admin":
+                    passWord = prompt("Password?");
+                    document.getElementById("test").innerText = "";
+                    switch (passWord){
+                        default:
+                        break;
+                        case "TheMaster":
+                        document.getElementById("feedbackText").innerText = "Welcome to Password Inc!";
+                        document.getElementById("test").innerText = "Hello admin.";
+                        break;
+                    }
+                    break;
+                    default:
+                    document.getElementById("test").innerText = "I don't know you.";
+                    userName = "";
+                    break;
+                }
+                
+            }
+
+        </script>
+
+    </body>
+</html>

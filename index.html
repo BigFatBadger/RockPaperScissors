@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rock Paper Scissors</title>
+        <link rel="stylesheet" href="styles.css">
+        <meta charset="utf-8"/>
+    </head>
+    <body>
+
+        <div id ="scoring">
+            <p>Beers:</p>
+            <p id="resultsTallyText">0</p>
+        </div>
+
+        <div id="titContainer">
+            <div id="title">
+                <h1>The Thirsty Fist</h1>
+            </div>
+        </div>
+
+        <p id='tag'>Welcome to The Thirsty Fist. We don't accept money here. If you can beat the barman at Rock Paper Scissors, you earn a beer!</p>
+
+<!--         <div id="wallpaper?">
+            <label for="theme">Want to change the wallpaper?</label>
+
+            <select id="theme">
+                <option value="White">White</option>
+                <option value="Black">Black</option>
+                <option value="Green">Green</option>
+                <option value="Blue">Blue</option>
+                <option value="Red">Red</option>
+            </select>
+        </div> -->
+
+        <div id="gameArea">
+
+            <h2>Make your choice:</h2><br>
+
+            <div id ="imgBox" height="350px" width="400px">
+                <img id="img_placeholder" height="300px" width="400px" src="Rockpix.png"></img>
+            </div>
+
+            <div class="swapButtons">
+                <button id="prev" class="LaR" type="button" ><</button>
+                <button id="next" class="LaR" type="button" >></button>
+            </div>
+            
+            <div id="resultsArea">
+                <h3 id="chosenHand">Rock</h3>
+                <h3 id="vsText"></h3>
+                <h3 id="compChoiceHand"></h3>
+            </div>
+
+<!--             <label for="playerHand">What will you choose?</label>
+
+            <select id="playerHand">
+                <option value="">--hand--</option>
+                <option value="Rock">Rock</option>
+                <option value="Paper">Paper</option>
+                <option value="Scissors">Scissors</option>
+            </select> -->
+
+            <button type="button" id="ChooseButton">Choose!</button>
+        </div>
+
+        <div id="computerChoice">
+            <h2>Barman chooses:</h2>
+
+            <div id ="compPicture" height="350px" width="400px">
+                <img id="comp_placeholder" height="300px" width="400px" src="Rockpix.png" style="transform: scaleX(-1);"></img>
+            </div>
+            
+        </div>
+        
+        <div id ="results">
+            <h2 id="resultText"></h2><br>
+        </div>
+
+<!-- Javascript -->
+
+        <script>
+
+            let chosenHandChoice;
+            let plrHand = document.getElementById("img_placeholder");
+            let cmpHand = document.getElementById("comp_placeholder");
+            let imgContain = document.getElementById("imgBox");
+            let computerSelection;
+            let resultSummary;
+            let resultsTally = 0;
+            let handSelect = document.querySelector("#playerHand");
+            // const BGselect = document.querySelector("#theme");
+            let RPSarray = ['Rockpix.png', 'Paperpix.png', 'Scissorspix.png'];
+            let tempNum;
+            let imgString;
+            const body = document.querySelector('body');
+
+            document.getElementById("prev").onclick = function(){
+                imgString = document.getElementById("chosenHand").innerText;
+                imgString = imgString.concat("pix.png");
+                tempNum = RPSarray.indexOf(imgString);
+
+                if (tempNum == 0) {
+                        tempNum = 2;
+                    } else {
+                        tempNum --;
+                    }
+                    
+                plrHand.src = RPSarray[tempNum];
+                imgString = RPSarray[tempNum];
+                imgString = imgString.replace("pix.png", "");
+                document.getElementById("chosenHand").innerText = imgString;
+            }
+
+ /*                 switch(Direction){
+                    case "prev":
+                    if (tempNum = 0) {
+                        tempNum = 3;
+                    } else {
+                        tempNum = tempNum -1;
+                    }
+                    plrHand.src = RPSarray(tempNum);
+                    break;
+                    case "next":
+                    if (tempNum = 3) {
+                        tempNum = 0;
+                    } else {
+                        tempNum = tempNum +1;
+                    }
+                    plrHand.src = RPSarray(tempNum);
+                    break;
+                } */
+
+            //Background color change
+
+/*             BGselect.addEventListener("change", updateBG);
+            
+            function updateBG() {
+                switch(BGselect.value){
+                    case "Black":
+                    body.style.backgroundColor = 'black';
+                    body.style.color = 'white';
+                    break;
+                    case "White":
+                    body.style.backgroundColor = 'white';
+                    body.style.color = 'black';
+                    break;
+                    case "Green":
+                    body.style.backgroundColor = 'green';
+                    body.style.color = 'purple';
+                    break;
+                    case "Blue":
+                    body.style.backgroundColor = 'blue';
+                    body.style.color = 'yellow';
+                    break;
+                    case "Red":
+                    body.style.backgroundColor = 'red';
+                    body.style.color = 'white';
+                    break;
+                }
+
+            } */
+        
+            //player hand change
+        
+/*             handSelect.addEventListener("change", handChoose);
+
+            function handChoose(){
+                chosenHandChoice = handSelect.value;
+                document.getElementById("chosenHand").innerText = chosenHandChoice;
+                switch (chosenHandChoice){
+                    case "Rock":
+                        plrHand.src = "Rockpix.png";
+                        break;
+                    case "Paper":
+                        plrHand.src = "Paperpix.png";
+                        break;
+                    case "Scissors":
+                        plrHand.src = "Scissorspix.png";
+                        break;
+                }
+            } */
+
+            //process round and computer hand change
+
+            document.getElementById("ChooseButton").onclick = function(){
+
+                chosenHandChoice = document.getElementById("chosenHand").innerText
+                chosenHandChoice = chosenHandChoice.replace("pix.png", "");
+
+                resultsTally = document.getElementById("resultsTallyText").innerText;
+
+                let randomNum = Math.floor((Math.random()*3)+1);
+
+                console.log(randomNum)
+                
+                if (randomNum == 1){
+                    computerSelection = "Rock";
+                    document.getElementById("comp_placeholder").src = "Rockpix.png";
+                    if (chosenHandChoice == "Rock") {
+                        resultSummary = "Draw";
+                    }
+                    else if (chosenHandChoice == "Paper"){
+                        resultSummary = "Win";
+                    }
+                    else if (chosenHandChoice == "Scissors"){
+                        resultSummary = "Lose";
+                    }
+                    
+                }
+                else if (randomNum == 2){
+                    computerSelection = "Paper";
+                    document.getElementById("comp_placeholder").src = "Paperpix.png";
+                    if (chosenHandChoice == "Paper") {
+                        resultSummary = "Draw";
+                    }
+                    else if (chosenHandChoice == "Rock"){
+                        resultSummary = "Lose";
+                    }
+                    else if (chosenHandChoice == "Scissors"){
+                        resultSummary = "Win";
+                    }
+
+                }
+                else if (randomNum == 3){
+                    computerSelection = "Scissors";
+                    document.getElementById("comp_placeholder").src = "Scissorspix.png";
+                    if (chosenHandChoice == "Scissors") {
+                        resultSummary = "Draw";
+                    }
+                    else if (chosenHandChoice == "Paper"){
+                        resultSummary = "Lose";
+                    }
+                    else if (chosenHandChoice == "Rock"){
+                        resultSummary = "Win";
+                    }
+                    
+                }
+                
+                document.getElementById("vsText").innerText = "Vs";
+
+                document.getElementById("compChoiceHand").innerText = computerSelection;
+
+                document.getElementById("resultText").innerText = "You " +resultSummary+ "!";
+                 
+                if (resultSummary == "Win"){
+                    resultsTally++;
+                }
+                else if (resultSummary == "Lose"){
+                    resultsTally--;
+                }
+
+                document.getElementById("resultsTallyText").innerText = resultsTally;
+        }
+    
+        </script>
+
+
+    </body>
+</html>

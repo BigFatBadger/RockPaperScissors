@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+
+        <button onclick="startPrompt()">Javascipt Name</button>
+        <button onclick="numberPrompt()">Number alert</button>
+        <button onclick="whatDay()">What day is it?</button>
+        <button onclick="whatSeason()">What season is it?</button>
+        <button onclick="grading()">Grade me</button>
+        <button onclick="draw()">Circles</button>
+        <button onclick="add7()">Add 7</button>
+        <button onclick="multiplyButton()">Multiply</button>
+
+        <canvas></canvas>
+        
+
+    <script>
+
+        let userAnswer;
+        let userMessage;
+
+        function startPrompt(){
+
+            userAnswer = prompt('What\'s the \"official\" name of Javascript?', 'Answer here...');
+
+            userMessage = (userAnswer == "ECMAScript") ? "Right!": "You don't know? It's ECMAScript!";
+
+            alert (userMessage);
+        }
+
+        function numberPrompt(){
+
+            userAnswer = prompt('Type in a number', '');
+
+            userMessage = (userAnswer > 0) ? "+1": (userAnswer < 0) ? "-1" : "0";
+
+            alert (userMessage);
+
+        }
+
+        function whatDay(){
+
+            let reportDay = (new Date().getDay() <6) ? "It's a weekday :(" : "It's the weekend! :)";
+
+            alert (reportDay);
+        }
+
+        function whatSeason(){
+
+            let reportSeason = new Date().getMonth();
+
+            switch(reportSeason){
+                case 0:
+                case 1:
+                case 2:
+                    userMessage = "Winter";
+                    break;
+                case 3:
+                case 4:
+                case 5:
+                    userMessage = "Spring";
+                    break;
+                case 6:
+                case 7:
+                case 8:
+                    userMessage = "Summer";
+                    break;
+                case 9:
+                case 10:
+                case 11:
+                    userMessage = "Autumn";
+                    break;
+                }
+
+            alert (userMessage);
+            }
+
+        function grading(){
+
+            let reportGrade
+            let gradeConv = prompt('What score did you get?', '');
+
+            switch (true){
+                case gradeConv >= 90:
+                reportGrade = "A";
+                break;
+                case gradeConv >= 80:
+                reportGrade = "B";
+                break;
+                case gradeConv >= 70:
+                reportGrade = "C";
+                break;
+                case gradeConv >= 60:
+                reportGrade = "D";
+                break;
+                case gradeConv >= 50:
+                reportGrade = "E";
+                break;
+                default:
+                reportGrade = "Ungraded";
+                break;                                
+            }
+            alert (reportGrade);
+
+            }
+
+            const canvas = document.querySelector('canvas');
+            const ctx = canvas.getContext('2d');
+
+            let WIDTH = document.documentElement.clientWidth;
+            let HEIGHT = document.documentElement.clientHeight;
+
+            canvas.width = WIDTH;
+            canvas.height = HEIGHT;
+
+            function random(number) {
+                return Math.floor(Math.random()*number);
+            }
+
+            function draw() {
+                ctx.clearRect(0,0,WIDTH,HEIGHT);
+                for (let i = 0; i < 100; i++) {
+                    ctx.fillRect(random(WIDTH), random(HEIGHT), random(100), random(100))
+                    //ctx.beginPath();
+                    ctx.fillStyle = 'rgba(0,0,0,1)';
+                    ctx.shadowColor = 'rgba(255,0,0,1)';
+                    ctx.shadowBlur = '20';
+                    //ctx.arc(random(WIDTH), random(HEIGHT), random(1000), 0, 2 * Math.PI);
+                    //ctx.fill();
+                }
+            }
+
+            function add7(){
+
+                userAnswer = prompt('Type in a number', '');
+
+                userMessage = (7 + +userAnswer);
+
+                alert (userMessage);
+
+                }
+
+            function multiplyButton(){
+                userAnswer = prompt('First number?','');
+                let secondUserAnswer = prompt('Second number?','');
+                alert (multiply(userAnswer, secondUserAnswer));
+            }
+
+            function multiply(firstNum, secondNum){
+
+                return (firstNum * secondNum);
+            }
+
+
+
+        
+
+    </script>
+
+    </body>
+
+</html>
