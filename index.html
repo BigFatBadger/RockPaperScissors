@@ -5,20 +5,30 @@
         <link rel="stylesheet" href="styles.css">
         <meta charset="utf-8"/>
     </head>
+    
     <body>
 
-        <div id ="scoring">
-            <p>Beers:</p>
-            <p id="resultsTallyText">0</p>
-        </div>
-
-        <div id="titContainer">
-            <div id="title">
-                <h1>The Thirsty Fist</h1>
+        <div id="barSign">
+            <div id="signImgContainer">
+                <img id="signImg" height="120px" width="150px" src="tavern.png"></img>
+            </div>
+            <div id="titContainer">
+                <div id="title">The Thirsty Fist</div>
+            </div>
+            <div id ="scoringContainer">
+                <div id="scoring">
+                    <p>Beers: </p>
+                    <p id="resultsTallyText">0</p>
+                </div>
             </div>
         </div>
 
-        <p id='tag'>Welcome to The Thirsty Fist. We don't accept money here. If you can beat the barman at Rock Paper Scissors, you earn a beer!</p>
+        <div id="introText">
+            <p id='tag'>Welcome to The Thirsty Fist. We don't accept money here. If you can beat the barman at Rock Paper Scissors, you earn a beer!</p>
+        </div>
+        <div id="colourTest">
+            <p id='colorBlocks'></p>
+        </div>
 
 <!--         <div id="wallpaper?">
             <label for="theme">Want to change the wallpaper?</label>
@@ -32,23 +42,48 @@
             </select>
         </div> -->
 
+        <div id="annouceArea">
+
+            <div id="playerTitle" class="areaColumn">
+                <h2>Make your choice:</h2>
+            </div>
+
+            <div id ="results" class="areaColumn">
+                <h2 id="resultText"></h2>
+            </div>
+
+            <div id="compTitle" class="areaColumn">
+                <h2>Barman chooses:</h2>
+            </div>
+
+        </div>
+
         <div id="gameArea">
 
-            <h2>Make your choice:</h2><br>
+            <div id="playerHand" class="areaColumn">
 
-            <div id ="imgBox" height="350px" width="400px">
-                <img id="img_placeholder" height="300px" width="400px" src="Rockpix.png"></img>
-            </div>
-
-            <div class="swapButtons">
-                <button id="prev" class="LaR" type="button" ><</button>
-                <button id="next" class="LaR" type="button" >></button>
-            </div>
+                <div id ="imgBox" height="350px" width="400px">
+                    <img id="img_placeholder" height="300px" width="400px" src="Rockpix.png"></img>
+                </div>
+                <br>
+                <div id="swapButtons">
+                    <button id="prev" class="LaR" type="button" ><</button>
+                    <button id="next" class="LaR" type="button" >></button>
+                </div>
             
-            <div id="resultsArea">
-                <h3 id="chosenHand">Rock</h3>
-                <h3 id="vsText"></h3>
-                <h3 id="compChoiceHand"></h3>
+            </div>
+                
+
+            <div id="resultsArea" class="areaColumn">
+
+                <div id="resultsWords">
+                    <p id="chosenHand" class="summText">Rock</p>
+                    <p id="vsText" class="summText"></p>
+                    <p id="compChoiceHand" class="summText"></p>
+                </div>
+
+                <button type="button" id="ChooseButton">Choose!</button>
+
             </div>
 
 <!--             <label for="playerHand">What will you choose?</label>
@@ -60,21 +95,20 @@
                 <option value="Scissors">Scissors</option>
             </select> -->
 
-            <button type="button" id="ChooseButton">Choose!</button>
-        </div>
+            <div id="computerChoice" class="areaColumn">
 
-        <div id="computerChoice">
-            <h2>Barman chooses:</h2>
-
-            <div id ="compPicture" height="350px" width="400px">
-                <img id="comp_placeholder" height="300px" width="400px" src="Rockpix.png" style="transform: scaleX(-1);"></img>
+                <div id ="compPicture" height="350px" width="400px">
+                    <img id="comp_placeholder" height="300px" width="400px" src="Rockpix.png" style="transform: scaleX(-1);"></img>
+                </div>
+                
             </div>
-            
+
         </div>
+
+
         
-        <div id ="results">
-            <h2 id="resultText"></h2><br>
-        </div>
+
+
 
 <!-- Javascript -->
 
@@ -93,8 +127,12 @@
             let tempNum;
             let imgString;
             const body = document.querySelector('body');
+            var frequency = .3;
+            var amplitude = 127;
+            var center = 128;
 
             document.getElementById("prev").onclick = function(){
+                resetText();
                 imgString = document.getElementById("chosenHand").innerText;
                 imgString = imgString.concat("pix.png");
                 tempNum = RPSarray.indexOf(imgString);
@@ -110,6 +148,33 @@
                 imgString = imgString.replace("pix.png", "");
                 document.getElementById("chosenHand").innerText = imgString;
             }
+
+            document.getElementById("next").onclick = function(){
+                resetText();
+                imgString = document.getElementById("chosenHand").innerText;
+                imgString = imgString.concat("pix.png");
+                tempNum = RPSarray.indexOf(imgString);
+
+                if (tempNum == 2) {
+                        tempNum = 0;
+                    } else {
+                        tempNum ++;
+                    }
+                    
+                plrHand.src = RPSarray[tempNum];
+                imgString = RPSarray[tempNum];
+                imgString = imgString.replace("pix.png", "");
+                document.getElementById("chosenHand").innerText = imgString;
+            }
+
+            function resetText(){
+                document.getElementById("vsText").innerText = "";
+                document.getElementById("compChoiceHand").innerText = "";
+                document.getElementById("resultText").innerText = "";
+
+            }
+
+
 
  /*                 switch(Direction){
                     case "prev":
@@ -204,6 +269,7 @@
                     }
                     else if (chosenHandChoice == "Scissors"){
                         resultSummary = "Lose";
+                        loseRound();
                     }
                     
                 }
@@ -215,6 +281,7 @@
                     }
                     else if (chosenHandChoice == "Rock"){
                         resultSummary = "Lose";
+                        loseRound();
                     }
                     else if (chosenHandChoice == "Scissors"){
                         resultSummary = "Win";
@@ -229,6 +296,7 @@
                     }
                     else if (chosenHandChoice == "Paper"){
                         resultSummary = "Lose";
+                        loseRound();
                     }
                     else if (chosenHandChoice == "Rock"){
                         resultSummary = "Win";
@@ -251,6 +319,45 @@
 
                 document.getElementById("resultsTallyText").innerText = resultsTally;
         }
+
+        function loseRound(){
+       // linear interpolation between two values a and b
+        // u controls amount of a/b and is in range [0.0,1.0]
+        lerp = function(a,b,u) {
+            return (1-u) * a + u * b;
+        };
+        
+        fade = function(element, property, start, end, duration) {
+        var interval = 10;
+        var steps = duration/interval;
+        var step_u = 1.0/steps;
+        var u = 0.0;
+        var theInterval = setInterval(function(){
+            if (u >= 1.0){ clearInterval(theInterval) }
+            var r = parseInt(lerp(start.r, end.r, u));
+            var g = parseInt(lerp(start.g, end.g, u));
+            var b = parseInt(lerp(start.b, end.b, u));
+            var colorname = 'rgb('+r+','+g+','+b+')';
+            el.style.setProperty(property, colorname);
+            u += step_u;
+        }, interval);
+        };
+        
+        // in action
+        el = document.body; // your element
+        property = 'background-color';       // fading property
+        startColor = {r:117, g:  66, b:  7};  // red
+        endColor   = {r:  255, g:66, b:7};  // dark turquoise
+
+        for (let i = 0; i <= 6; i++){
+        fade(el,'background-color',startColor,endColor,100);
+        setTimeout(function(){
+            fade(el,'background-color',endColor,startColor,100);
+        },200); 
+
+        };
+
+        }                                    
     
         </script>
 
